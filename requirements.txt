@@ -1,0 +1,3 @@
+mistune==3.0.2
+loguru==0.7.2
+natsort==8.4.0

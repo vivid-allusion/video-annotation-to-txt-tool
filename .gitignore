@@ -1,0 +1,40 @@
+# Virtual Environment
+venv/
+.venv/
+env/
+.env/
+
+# Environment Variables
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# User Data
+USER-FILES/00.KB/
+USER-FILES/04.INPUT/
+USER-FILES/05.OUTPUT/
+USER-FILES/06.DONE/
+USER-FILES/07.TEMP/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# MCP
+.mcp.json
+
+# Project specific
+USER-FILES/
+!USER-FILES/.gitkeep
