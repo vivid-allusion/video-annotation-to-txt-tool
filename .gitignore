@@ -36,7 +36,6 @@ Thumbs.db
 .mcp.json
 
 # Project specific
-USER-FILES/
 !USER-FILES/.gitkeep
 *.pyc
 .claude/
