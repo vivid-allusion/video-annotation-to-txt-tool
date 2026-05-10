@@ -102,11 +102,11 @@ def validate_file_non_empty(file_path: Path) -> None:
         )
 
 
-def validate_has_code_blocks(blocks: list[str]) -> None:
+def validate_has_code_blocks(blocks: list[tuple[str, str]]) -> None:
     """Verify at least one code block exists.
 
     Args:
-        blocks: List of code blocks
+        blocks: List of (filename, content) tuples
 
     Raises:
         NoCodeBlocksError: If no code blocks found
@@ -118,8 +118,8 @@ def validate_has_code_blocks(blocks: list[str]) -> None:
         )
 
 
-def validate_and_extract(input_dir: Path) -> tuple[Path, list[str]]:
-    """Run all validations and extract code blocks.
+def validate_and_extract(input_dir: Path) -> tuple[Path, list[tuple[str, str]]]:
+    """Run all validations and extract code blocks with filenames.
 
     Main validation orchestration function.
 
@@ -127,7 +127,7 @@ def validate_and_extract(input_dir: Path) -> tuple[Path, list[str]]:
         input_dir: Input directory to process
 
     Returns:
-        Tuple of (markdown file path, list of code blocks)
+        Tuple of (markdown file path, list of (filename, content) tuples)
 
     Raises:
         NoMarkdownFilesError: If no markdown files found

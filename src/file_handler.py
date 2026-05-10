@@ -11,7 +11,7 @@ from .exceptions import WriteError
 
 
 def create_timestamped_dir(base_dir: Path) -> Path:
-    """Create timestamped output directory.
+    """Create timestamped output directory with _VIDEO-PROMPT suffix.
 
     Args:
         base_dir: Base output directory
@@ -22,9 +22,9 @@ def create_timestamped_dir(base_dir: Path) -> Path:
     Raises:
         WriteError: If directory creation fails
     """
-    # Format: YYMMDD_HHMMSS
+    # Format: YYMMDD_HHMMSS_VIDEO-PROMPT
     timestamp = datetime.now().strftime("%y%m%d_%H%M%S")
-    output_dir = base_dir / timestamp
+    output_dir = base_dir / f"{timestamp}_VIDEO-PROMPT"
 
     try:
         output_dir.mkdir(parents=True, exist_ok=True)
@@ -56,11 +56,11 @@ def write_text_file(content: str, output_path: Path) -> None:
         ) from e
 
 
-def write_extracted_files(blocks: list[str], output_dir: Path) -> list[Path]:
-    """Write code blocks to numbered text files.
+def write_extracted_files(blocks: list[tuple[str, str]], output_dir: Path) -> list[Path]:
+    """Write code blocks to text files using filenames from markdown.
 
     Args:
-        blocks: List of code block contents
+        blocks: List of (filename, content) tuples
         output_dir: Directory to write files to
 
     Returns:
@@ -71,23 +71,20 @@ def write_extracted_files(blocks: list[str], output_dir: Path) -> list[Path]:
     """
     created_files = []
 
-    for i, block_content in enumerate(blocks, start=1):
-        # Filename format: video_prompt_{N}.txt (unpadded)
-        filename = f"video_prompt_{i}.txt"
+    for filename, content in blocks:
         output_path = output_dir / filename
-
-        write_text_file(block_content, output_path)
+        write_text_file(content, output_path)
         created_files.append(output_path)
 
     return created_files
 
 
-def generate_summary_content(md_file: Path, blocks: list[str], output_dir: Path) -> str:
+def generate_summary_content(md_file: Path, blocks: list[tuple[str, str]], output_dir: Path) -> str:
     """Generate markdown summary content.
 
     Args:
         md_file: Source markdown file
-        blocks: Extracted code blocks
+        blocks: List of (filename, content) tuples
         output_dir: Output directory path
 
     Returns:
@@ -112,21 +109,21 @@ def generate_summary_content(md_file: Path, blocks: list[str], output_dir: Path)
 
 """
 
-    # Add numbered list of created files
-    for i in range(1, len(blocks) + 1):
-        summary += f"{i}. video_prompt_{i}.txt\n"
+    # Add numbered list of created files with their actual filenames
+    for i, (filename, _) in enumerate(blocks, start=1):
+        summary += f"{i}. {filename}\n"
 
     summary += "\n---\nExtraction completed successfully.\n"
 
     return summary
 
 
-def write_summary_log(md_file: Path, blocks: list[str], output_dir: Path) -> None:
+def write_summary_log(md_file: Path, blocks: list[tuple[str, str]], output_dir: Path) -> None:
     """Write extraction summary to markdown file.
 
     Args:
         md_file: Source markdown file
-        blocks: Extracted code blocks
+        blocks: List of (filename, content) tuples
         output_dir: Output directory path
 
     Raises:

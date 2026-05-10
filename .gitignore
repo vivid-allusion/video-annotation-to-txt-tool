@@ -38,3 +38,8 @@ Thumbs.db
 # Project specific
 USER-FILES/
 !USER-FILES/.gitkeep
+*.pyc
+.claude/
+*.log
+.ruff_cache/
+.pytest_cache/
