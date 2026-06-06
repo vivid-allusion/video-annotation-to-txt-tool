@@ -1,0 +1,50 @@
+# Virtual Environment
+venv/
+.venv/
+env/
+.env/
+
+# Environment Variables
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# User Data
+USER-FILES/00.KB/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# MCP
+.mcp.json
+
+# Project specific
+!USER-FILES/.gitkeep
+*.pyc
+.claude/
+*.log
+.ruff_cache/
+.pytest_cache/
+250915_replicate
+# User data folders — track structure, ignore content
+USER-FILES/04.INPUT/*
+!USER-FILES/04.INPUT/.gitkeep
+USER-FILES/05.OUTPUT/*
+!USER-FILES/05.OUTPUT/.gitkeep
+USER-FILES/06.DONE/*
+!USER-FILES/06.DONE/.gitkeep
+USER-FILES/07.TEMP/*
+!USER-FILES/07.TEMP/.gitkeep
